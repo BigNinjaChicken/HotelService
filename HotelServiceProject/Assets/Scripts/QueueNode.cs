@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class QueueNode : MonoBehaviour
 {
-    public bool nodeTaken;
+    public bool nodeTaken = false;
 
     private void Start()
     {
-        nodeTaken = false;
+
     }
 
     // Update is called once per frame

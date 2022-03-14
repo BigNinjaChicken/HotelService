@@ -4,19 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameTime : MonoBehaviour
 {
     // 240 sec in game time
     private float timeOffset;
-    [SerializeField] private float gameLengthSec = 10f;
-
+    [SerializeField] private float gameLengthSec = 60f * 6f;
     [SerializeField] private TextMeshProUGUI TimerText;
+
+    public float currentInGameTime = -1f;
+
+    [SerializeField] private StationaryPlayerController playerScript;
 
     // Start is called before the first frame update
     void Start()
     {
         timeOffset = Time.realtimeSinceStartup;
+        currentInGameTime  = gameLengthSec;
     }
 
     // Update is called once per frame
@@ -26,6 +31,7 @@ public class GameTime : MonoBehaviour
         float min = 0;
 
         min = (Time.realtimeSinceStartup - timeOffset) * (240 / gameLengthSec);
+        currentInGameTime = (Time.realtimeSinceStartup - timeOffset);
 
         while (min > 60)
         {
@@ -36,12 +42,20 @@ public class GameTime : MonoBehaviour
         if (hour == 0)
             hour = 12;
 
-        if (hour == 4)
+        if (hour >= 4 && hour <= 5)
         {
             hour = 4;
             min = 0;
 
             // Run end game code here
+            if (playerScript.servicePoints >= 4)
+            {
+                SceneManager.LoadScene("Win", LoadSceneMode.Single);
+            } 
+            else
+            {
+                SceneManager.LoadScene("Lose", LoadSceneMode.Single);
+            }
         }
 
         displayTime((int)hour, (int)min);

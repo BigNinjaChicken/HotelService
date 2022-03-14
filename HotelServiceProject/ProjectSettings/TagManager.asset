@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - BasicCustomer
+  - MarkerHitBox
+  - Ghost
+  - RoomNode
   layers:
   - Default
   - TransparentFX
@@ -12,7 +16,7 @@ TagManager:
   - Water
   - UI
   - Post Proccessing
-  - 
+  - Player
   - 
   - 
   - 

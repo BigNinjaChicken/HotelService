@@ -11,8 +11,12 @@ public class BasicCustomerController : MonoBehaviour
     // Node Vars
     [SerializeField] private GameObject allQueueNodes;
     private List<QueueNode> queueNodes;
-    private int queuePos = 0;
-    private bool foundSpot = false;
+    public int queuePos = 0;
+    private bool foundSpot = false; // Found First Spot
+
+    // Interact feilds
+    public string[] customerChat;
+    public int aimCount;
 
     // Start is called before the first frame update
     void Start()
@@ -38,10 +42,15 @@ public class BasicCustomerController : MonoBehaviour
                 {
                     queueNodes[queuePos].nodeTaken = false;
                     queueNodes[queuePos - 1].nodeTaken = true;
-
+                    
                     navMesh.SetDestination(queueNodes[queuePos - 1].transform.position);
+                    queuePos--;
                 }
             }
+        } 
+        else
+        {
+
         }
     }
 
@@ -54,12 +63,17 @@ public class BasicCustomerController : MonoBehaviour
             {
                 node.nodeTaken = true;
 
-                queuePos = queueNodes.Count;
+                queuePos = i;
                 foundSpot = true;
                 navMesh.SetDestination(node.transform.position);
 
                 return;
             }
         }
+    }
+
+    void interactedWith()
+    {
+
     }
 }
